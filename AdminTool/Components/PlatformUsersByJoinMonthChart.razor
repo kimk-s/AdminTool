@@ -1,0 +1,58 @@
+﻿@using ApexCharts
+@using AdminTool.Data
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<UserContext> DbFactory
+
+<ApexChart TItem="UsersGroupByJoinMonth" Title="날짜별 플랫폼 가입 유저 수">
+    <ApexPointSeries TItem="UsersGroupByJoinMonth"
+                        Items="usersGroupByJoinMonths"
+                        Name="Android 가입 유저 수"
+                        SeriesType="SeriesType.Bar"
+                        XValue="e => e.JoinMonth"
+                        YValue="e => e.AndroidUsers" />
+    <ApexPointSeries TItem="UsersGroupByJoinMonth"
+                        Items="usersGroupByJoinMonths"
+                        Name="iOS 가입 유저 수"
+                        SeriesType="SeriesType.Bar"
+                        XValue="e => e.JoinMonth"
+                        YValue="e => e.iOSUsers" />
+    <ApexPointSeries TItem="UsersGroupByJoinMonth"
+                        Items="usersGroupByJoinMonths"
+                        Name="PC 가입 유저 수"
+                        SeriesType="SeriesType.Bar"
+                        XValue="e => e.JoinMonth"
+                        YValue="e => e.PCUsers" />
+</ApexChart>
+
+@code {
+    private IEnumerable<UsersGroupByJoinMonth> usersGroupByJoinMonths = Array.Empty<UsersGroupByJoinMonth>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        var users = await context.Users.ToListAsync();
+
+        usersGroupByJoinMonths = users.GroupBy(x => x.JoinMonth)
+            .Select(x => new UsersGroupByJoinMonth()
+                {
+                    AndroidUsers = x.Where(x => x.Platform == Platform.Android).Count(),
+                    iOSUsers = x.Where(x => x.Platform == Platform.iOS).Count(),
+                    PCUsers = x.Where(x => x.Platform == Platform.PC).Count(),
+                    JoinMonth = x.Key + "월"
+                })
+            .ToList();
+    }
+
+    private class UsersGroupByJoinMonth
+    {
+        public int AndroidUsers { get; set; }
+
+        public int iOSUsers { get; set; }
+
+        public int PCUsers { get; set; }
+
+        public int TotalUsers => AndroidUsers + iOSUsers + PCUsers;
+
+        public string JoinMonth { get; set; } = string.Empty;
+    }
+}

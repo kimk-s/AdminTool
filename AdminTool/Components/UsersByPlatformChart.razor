@@ -1,0 +1,23 @@
+﻿@using ApexCharts
+@using AdminTool.Data
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<UserContext> DbFactory
+
+<ApexChart TItem="User" Title="플랫폼별 가입 유저 수">
+    <ApexPointSeries TItem="User"
+                        Items="users"
+                        Name="가입 유저 수"
+                        SeriesType="SeriesType.Pie"
+                        XValue="e => e.Platform"
+                        YAggregate="e => e.Count()" />
+</ApexChart>
+
+@code {
+    private IEnumerable<User> users = Array.Empty<User>();
+
+    protected override async Task OnInitializedAsync()
+    {
+        using var context = DbFactory.CreateDbContext();
+        users = await context.Users.ToListAsync();
+    }
+}

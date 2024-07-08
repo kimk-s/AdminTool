@@ -1,0 +1,15 @@
+﻿@page "/"
+
+<MudPaper Class="pa-8 ma-2">
+    <MudStack Spacing="6">
+        <MudLink Href="/statistics">유저 통계</MudLink>
+        <MudGrid>
+            <MudItem xs="12" sm="6">
+                <UsersByJoinMonthChart />
+            </MudItem>
+            <MudItem xs="12" sm="6">
+                <UsersByPlatformChart />
+            </MudItem>
+        </MudGrid>
+    </MudStack>
+</MudPaper>

@@ -1,0 +1,17 @@
+﻿@page "/statistics"
+@using ApexCharts
+@using AdminTool.Data
+@using Microsoft.EntityFrameworkCore
+@inject IDbContextFactory<UserContext> DbFactory
+
+<MudStack Spacing="8">
+    <MudPaper Class="pa-8 ma-2">
+        <UsersByJoinMonthChart />
+    </MudPaper>
+    <MudPaper Class="pa-8 ma-2">
+        <PlatformUsersByJoinMonthChart />
+    </MudPaper>
+    <MudPaper Class="pa-8 ma-2">
+        <UsersByPlatformChart />
+    </MudPaper>
+</MudStack>
