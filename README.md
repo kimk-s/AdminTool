@@ -15,7 +15,7 @@ ASP.NET Core Blazor를 사용하여 만든 간단한 운영툴 데모입니다.
 
 ### 유저 통계
 유저 통계를 차트로 표시하는 페이지입니다. 라인, 막대, 파이 차트가 있습니다.  
-[Blazor-ApexChars](https://github.com/apexcharts/Blazor-ApexCharts)를 사용하여 만들었습니다.  
+[Blazor-ApexCharts](https://github.com/apexcharts/Blazor-ApexCharts)를 사용하여 만들었습니다.  
 
 ![Screenshot 2024-07-08 133508](https://github.com/kimk-s/AdminTool/assets/71550078/fac136a4-9b6b-46e3-a9e9-e3ca99de7059)
 
